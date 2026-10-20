@@ -14,32 +14,55 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Book.ID" />
+
             <div class="form-group">
                 <label asp-for="Book.Title" class="control-label"></label>
                 <input asp-for="Book.Title" class="form-control" />
                 <span asp-validation-for="Book.Title" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Book.Author" class="control-label"></label>
-                <input asp-for="Book.Author" class="form-control" />
-                <span asp-validation-for="Book.Author" class="text-danger"></span>
+                <label asp-for="Book.AuthorID" class="control-label">Author Name</label>
+                <select asp-for="Book.AuthorID" class="form-control" asp-items="ViewBag.AuthorID"></select>
+                <span asp-validation-for="Book.AuthorID" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Book.Price" class="control-label"></label>
                 <input asp-for="Book.Price" class="form-control" />
                 <span asp-validation-for="Book.Price" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Book.PublishingDate" class="control-label"></label>
                 <input asp-for="Book.PublishingDate" class="form-control" />
                 <span asp-validation-for="Book.PublishingDate" class="text-danger"></span>
             </div>
-            
-            <!-- AICI AM ADAUGAT DROPDOWN-UL PENTRU PUBLISHER (Punctul 36) -->
+
             <div class="form-group">
                 <label asp-for="Book.PublisherID" class="control-label">Publisher Name</label>
                 <select asp-for="Book.PublisherID" class="form-control" asp-items="ViewBag.PublisherID"></select>
                 <span asp-validation-for="Book.PublisherID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Categories</label>
+                <div>
+                    @if (Model.AssignedCategoryDataList != null)
+                    {
+                        foreach (var cat in Model.AssignedCategoryDataList)
+                        {
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox"
+                                       class="form-check-input"
+                                       name="selectedCategories"
+                                       value="@cat.CategoryID"
+                                       checked="@cat.Assigned" />
+                                <label class="form-check-label">@cat.CategoryID @cat.Name</label>
+                            </div>
+                        }
+                    }
+                </div>
             </div>
 
             <div class="form-group">
@@ -54,5 +77,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

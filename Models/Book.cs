@@ -23,5 +23,6 @@ namespace Vonica_Alexandru_Lab2.Models
         // Cheie străină și proprietate de navigare către entitatea Publisher
         public int? PublisherID { get; set; }
         public Publisher? Publisher { get; set; }
+        public ICollection<BookCategory>? BookCategories { get; set; }
     }
 }

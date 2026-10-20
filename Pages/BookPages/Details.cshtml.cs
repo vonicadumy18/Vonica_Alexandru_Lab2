@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Vonica_Alexandru_Lab2.Data;
 using Vonica_Alexandru_Lab2.Models;
 
 namespace Vonica_Alexandru_Lab2.Pages.BookPages;
@@ -8,6 +9,7 @@ namespace Vonica_Alexandru_Lab2.Pages.BookPages;
 public class DetailsModel : PageModel
 {
     private readonly Vonica_Alexandru_Lab2Context _context;
+
     public DetailsModel(Vonica_Alexandru_Lab2Context context)
     {
         _context = context;
@@ -22,16 +24,20 @@ public class DetailsModel : PageModel
             return NotFound();
         }
 
-        var book = await _context.Book.FirstOrDefaultAsync(m => m.ID == id);
+        var book = await _context.Book
+            .Include(b => b.Author)
+            .Include(b => b.Publisher)
+            .Include(b => b.BookCategories)
+                .ThenInclude(bc => bc.Category)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(m => m.ID == id);
+
         if (book is null)
         {
             return NotFound();
         }
-        else
-        {
-            Book = book;
-        }
 
+        Book = book;
         return Page();
     }
 }
