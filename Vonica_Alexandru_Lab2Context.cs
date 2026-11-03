@@ -5,6 +5,8 @@ namespace Vonica_Alexandru_Lab2.Data
 {
     public class Vonica_Alexandru_Lab2Context : DbContext
     {
+        public DbSet<Vonica_Alexandru_Lab2.Models.Borrowing> Borrowing { get; set; } = default!;
+        public DbSet<Vonica_Alexandru_Lab2.Models.Member> Member { get; set; } = default!;
         public Vonica_Alexandru_Lab2Context(DbContextOptions<Vonica_Alexandru_Lab2Context> options)
             : base(options)
         {

@@ -9,8 +9,6 @@ namespace Vonica_Alexandru_Lab2.Models
 
         [Display(Name = "Book Title")]
         public string Title { get; set; }
-
-        // Cheie străină și proprietate de navigare către entitatea Author
         public int? AuthorID { get; set; }
         public Author? Author { get; set; }
 
@@ -20,9 +18,9 @@ namespace Vonica_Alexandru_Lab2.Models
         [DataType(DataType.Date)]
         public DateTime PublishingDate { get; set; }
 
-        // Cheie străină și proprietate de navigare către entitatea Publisher
         public int? PublisherID { get; set; }
         public Publisher? Publisher { get; set; }
         public ICollection<BookCategory>? BookCategories { get; set; }
+        public ICollection<Borrowing>? Borrowings { get; set; }
     }
 }
