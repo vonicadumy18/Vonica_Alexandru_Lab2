@@ -1,10 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Vonica_Alexandru_Lab2.Data;
 using Vonica_Alexandru_Lab2.Models;
 
 namespace Vonica_Alexandru_Lab2.Pages.BookPages;
 
+[Authorize(Roles = "Admin")]
 public class DeleteModel : PageModel
 {
     private readonly Vonica_Alexandru_Lab2Context _context;
